@@ -15,7 +15,7 @@ struct YearMonthDay: Codable {
 }
 
 // ユーザー情報を表す構造体
-struct User: Codable {
+struct UserData: Codable {
   var name: String
   var birthday: YearMonthDay
   var bloodType: String
