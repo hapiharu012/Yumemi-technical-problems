@@ -21,4 +21,14 @@ struct PrefectureData: Codable {
   var hasCoastLine: Bool
   var logoUrl: String
   var brief: String
+  
+  // CoodingKeysを使って、JSONのキーと構造体のプロパティ名を紐付ける
+  enum CodingKeys: String, CodingKey {
+          case name
+          case capital
+          case citizenDay = "citizen_day"
+          case hasCoastLine = "has_coast_line"
+          case logoUrl = "logo_url"
+          case brief
+      }
 }

@@ -13,6 +13,7 @@
 		416AE59F2B46D63C0089039A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 416AE59E2B46D63C0089039A /* Preview Assets.xcassets */; };
 		41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD62B4837EE00646B1B /* UserData.swift */; };
 		41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD82B48402000646B1B /* PrefectureData.swift */; };
+		41B8BCDC2B48676200646B1B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCDB2B48676200646B1B /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		416AE59E2B46D63C0089039A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		41B8BCD62B4837EE00646B1B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		41B8BCD82B48402000646B1B /* PrefectureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefectureData.swift; sourceTree = "<group>"; };
+		41B8BCDB2B48676200646B1B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		416AE5962B46D63B0089039A /* Regional-Compatibility-Checker */ = {
 			isa = PBXGroup;
 			children = (
+				41B8BCDA2B4866C400646B1B /* Services */,
 				41B8BCD52B4837C200646B1B /* Models */,
 				416AE5972B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift */,
 				41B8BCD42B4837B100646B1B /* Views */,
@@ -87,6 +90,14 @@
 				41B8BCD82B48402000646B1B /* PrefectureData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		41B8BCDA2B4866C400646B1B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				41B8BCDB2B48676200646B1B /* APIService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				416AE59A2B46D63B0089039A /* ContentView.swift in Sources */,
+				41B8BCDC2B48676200646B1B /* APIService.swift in Sources */,
 				416AE5982B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift in Sources */,
 				41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */,
 				41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */,
