@@ -14,6 +14,7 @@
 		41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD62B4837EE00646B1B /* UserData.swift */; };
 		41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD82B48402000646B1B /* PrefectureData.swift */; };
 		41B8BCDC2B48676200646B1B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCDB2B48676200646B1B /* APIService.swift */; };
+		41D9850B2B49AAF800C1CD62 /* UserPrefectureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		41B8BCD62B4837EE00646B1B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		41B8BCD82B48402000646B1B /* PrefectureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefectureData.swift; sourceTree = "<group>"; };
 		41B8BCDB2B48676200646B1B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefectureViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		416AE5962B46D63B0089039A /* Regional-Compatibility-Checker */ = {
 			isa = PBXGroup;
 			children = (
+				41D985092B49A25000C1CD62 /* ViewModel */,
 				41B8BCDA2B4866C400646B1B /* Services */,
 				41B8BCD52B4837C200646B1B /* Models */,
 				416AE5972B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift */,
@@ -98,6 +101,14 @@
 				41B8BCDB2B48676200646B1B /* APIService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		41D985092B49A25000C1CD62 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41D9850B2B49AAF800C1CD62 /* UserPrefectureViewModel.swift in Sources */,
 				416AE59A2B46D63B0089039A /* ContentView.swift in Sources */,
 				41B8BCDC2B48676200646B1B /* APIService.swift in Sources */,
 				416AE5982B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift in Sources */,
