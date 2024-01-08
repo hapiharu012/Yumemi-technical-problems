@@ -53,7 +53,7 @@ class APIService {
       
       do {
         if let dataString = String(data: data, encoding: .utf8) {
-             print("受信データ: \(dataString)")
+//             print("受信データ: \(dataString)")
          }
         let prefectureData = try JSONDecoder().decode(PrefectureData.self, from: data)
         completion(.success(prefectureData))

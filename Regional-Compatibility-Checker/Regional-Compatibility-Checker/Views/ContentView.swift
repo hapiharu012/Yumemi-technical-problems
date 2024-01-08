@@ -27,8 +27,8 @@ struct ContentView: View {
               self.result = prefectureData
               print("通信が成功しました")
             case .failure(let error):
+              print("エラーが発生しました:")
               print(error)
-              print("エラーが発生しました")
             }
           }
           print("ボタンが押されました")

@@ -57,12 +57,24 @@ class UserPrefectureViewModel: ObservableObject {
         case .success(let data):
           self?.prefectureData = data
         case .failure(let error):
-          self?.errorMessage = error.localizedDescription
+          self?.handleError(error)
         }
       }
     }
   }
   
+  private func handleError(_ error: Error) {
+      if let urlError = error as? URLError {
+          switch urlError.code {
+          case .notConnectedToInternet:
+              self.errorMessage = "インターネット接続がありません。"
+          default:
+              self.errorMessage = "ネットワークエラーが発生しました。"
+          }
+      } else {
+          self.errorMessage = "データの取得に失敗しました。"
+      }
+  }
 
   
   // ユーザー名のバリデーションを行うメソッド
@@ -141,7 +153,7 @@ class UserPrefectureViewModel: ObservableObject {
     }
     
     URLSession.shared.dataTask(with: url) { [weak self] data, response, error in  // [weak self]を使って循環参照を防ぐ
-      if let error = error {
+      if error != nil {
 //        print("画像のダウンロードに失敗しました: ", error.localizedDescription)
         self?.errorMessage = "画像のダウンロードに失敗しました。"
         return
