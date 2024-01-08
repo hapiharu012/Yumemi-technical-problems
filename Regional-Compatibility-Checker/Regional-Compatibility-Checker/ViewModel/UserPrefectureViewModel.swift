@@ -24,12 +24,13 @@ class UserPrefectureViewModel: ObservableObject {
       }
   
   @Published var isLoading: Bool = false // APIリクエスト中かどうか
+  @Published var isAlertPresented: Bool = false // アラートを表示するかどうか
   @Published var errorMessage: String? // エラーメッセージ
   @Published var nameErrorMessage: String? // 名前のエラーメッセージ
   @Published var birthdayErrorMessage: String? // 誕生日のエラーメッセージ
   @Published var bloodTypeErrorMessage: String? // 血液型のエラーメッセージ
   
-  @Published var downloadedImage: UIImage? // 県のロゴ（イラスト）
+  @Published var downloadedImage: UIImage? // logoUrlカラ取得してきた県のロゴ（イラスト）
   
   
   private var apiService: APIService
@@ -116,6 +117,7 @@ class UserPrefectureViewModel: ObservableObject {
     else {
       self.errorMessage = "データの取得に失敗しました。"
     }
+    self.isAlertPresented = true
   }  // -> handleError()
   
   
