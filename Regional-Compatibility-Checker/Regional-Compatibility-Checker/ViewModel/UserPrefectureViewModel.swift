@@ -25,13 +25,20 @@ class UserPrefectureViewModel: ObservableObject {
   @Published var bloodTypeErrorMessage: String? // 血液型のエラーメッセージ
   
   @Published var downloadedImage: UIImage? // 県のロゴ（イラスト）
-
+  
   
   private var apiService: APIService
+  private var imageDownloadService = ImageDownloadService()
   
   init(apiService: APIService = APIService()) {
     self.apiService = apiService
     self.userData = UserData(name: "", birthday: YearMonthDay(year: 0, month: 1, day: 1), bloodType: "", today: YearMonthDay(year: 0, month: 0, day: 0))
+  }
+  
+  enum ImageDownloadError: Error {
+    case invalidURL
+    case imageDataError
+    case unknown
   }
   
   // MARK: - fetchPrefectureData()
@@ -46,7 +53,7 @@ class UserPrefectureViewModel: ObservableObject {
     let year = calendar.component(.year, from: now)
     let month = calendar.component(.month, from: now)
     let day = calendar.component(.day, from: now)
-
+    
     self.userData.today = YearMonthDay(year: year, month: month, day: day)  // ユーザー情報(today)に現在時刻をセット
     
     apiService.postUserData(userData: self.userData) { [weak self] result in  // [weak self]を使って循環参照を防ぐ
@@ -64,18 +71,33 @@ class UserPrefectureViewModel: ObservableObject {
   }
   
   private func handleError(_ error: Error) {
-      if let urlError = error as? URLError {
-          switch urlError.code {
-          case .notConnectedToInternet:
-              self.errorMessage = "インターネット接続がありません。"
-          default:
-              self.errorMessage = "ネットワークエラーが発生しました。"
-          }
-      } else {
-          self.errorMessage = "データの取得に失敗しました。"
+    // URLErrorのハンドリング
+    if let urlError = error as? URLError {
+      switch urlError.code {
+      case .notConnectedToInternet:
+        self.errorMessage = "インターネット接続がありません。"
+      default:
+        self.errorMessage = "ネットワークエラーが発生しました。"
       }
+    }
+    // カスタムエラーのハンドリング
+    else if let downloadError = error as? ImageDownloadError {
+      switch downloadError {
+      case .invalidURL:
+        self.errorMessage = "無効なURLです。"
+      case .imageDataError:
+        self.errorMessage = "画像データに問題があります。"
+      case .unknown:
+        self.errorMessage = "エラーが発生しました。"
+      }
+    }
+    // その他のエラーのハンドリング
+    else {
+      self.errorMessage = "データの取得に失敗しました。"
+    }
   }
-
+  
+  
   
   // ユーザー名のバリデーションを行うメソッド
   // MARK: - validateName()
@@ -105,13 +127,13 @@ class UserPrefectureViewModel: ObservableObject {
       self.birthdayErrorMessage = "誕生日を入力してください。"
       return
     }
-
+    
     // 日付の形式が正しいかどうかのチェック
     guard let birthdayDate = calendar.date(from: dateComponents) else {
       self.birthdayErrorMessage = "無効な日付です。"
       return
     }
-
+    
     // 誕生日が未来の日付でないかのチェック
     if birthdayDate > currentDate {
       self.birthdayErrorMessage = "誕生日が未来の日付です。"
@@ -137,33 +159,25 @@ class UserPrefectureViewModel: ObservableObject {
   // 全てのユーザー情報のバリデーションを行うメソッド
   // MARK: - validateAllFields()
   func validateAllFields() -> Bool {
-          validateName()
-          validateBirthday()
-          validateBloodType()
+    validateName()
+    validateBirthday()
+    validateBloodType()
     return nameErrorMessage == nil && birthdayErrorMessage == nil && bloodTypeErrorMessage == nil  // エラーメッセージが全てnilであればtrueを返す
-    }
+  }
   
   // prefectureDataのlogoUrlの県のイラストをダウンロードする
   // MARK: - downloadPrefectureImage()
   func downloadPrefectureImage(from urlString: String) {
-    guard let url = URL(string: urlString) else {  // URLが有効かどうかのチェック
-//      print("URLが無効です")
-      errorMessage = "URLが無効です。"
-      return
-    }
-    
-    URLSession.shared.dataTask(with: url) { [weak self] data, response, error in  // [weak self]を使って循環参照を防ぐ
-      if error != nil {
-//        print("画像のダウンロードに失敗しました: ", error.localizedDescription)
-        self?.errorMessage = "画像のダウンロードに失敗しました。"
-        return
+    imageDownloadService.downloadImage(from: urlString) { [weak self] result in
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let image):
+          self?.downloadedImage = image
+        case .failure(let error):
+          self?.handleError(error)
+        }
       }
-      if let data = data, let image = UIImage(data: data) {  // 画像のダウンロードに成功した場合
-                      DispatchQueue.main.async {  // メインスレッドで実行
-                          self?.downloadedImage = image
-                      }
-                  }
-    }.resume()  // 非同期で画像をダウンロード
+    }
   }
   
 }
