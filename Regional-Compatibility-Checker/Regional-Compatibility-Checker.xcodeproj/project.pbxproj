@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		413B03522B4C581300E95412 /* ImageDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413B03512B4C581300E95412 /* ImageDownloadService.swift */; };
 		416AE5982B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE5972B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift */; };
 		416AE59A2B46D63B0089039A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE5992B46D63B0089039A /* ContentView.swift */; };
 		416AE59C2B46D63C0089039A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 416AE59B2B46D63C0089039A /* Assets.xcassets */; };
@@ -14,9 +15,11 @@
 		41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD62B4837EE00646B1B /* UserData.swift */; };
 		41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD82B48402000646B1B /* PrefectureData.swift */; };
 		41B8BCDC2B48676200646B1B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCDB2B48676200646B1B /* APIService.swift */; };
+		41D9850B2B49AAF800C1CD62 /* UserPrefectureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		413B03512B4C581300E95412 /* ImageDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadService.swift; sourceTree = "<group>"; };
 		416AE5942B46D63B0089039A /* Regional-Compatibility-Checker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Regional-Compatibility-Checker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		416AE5972B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regional_Compatibility_CheckerApp.swift; sourceTree = "<group>"; };
 		416AE5992B46D63B0089039A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -25,6 +28,7 @@
 		41B8BCD62B4837EE00646B1B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		41B8BCD82B48402000646B1B /* PrefectureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefectureData.swift; sourceTree = "<group>"; };
 		41B8BCDB2B48676200646B1B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefectureViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 		416AE5962B46D63B0089039A /* Regional-Compatibility-Checker */ = {
 			isa = PBXGroup;
 			children = (
+				41D985092B49A25000C1CD62 /* ViewModel */,
 				41B8BCDA2B4866C400646B1B /* Services */,
 				41B8BCD52B4837C200646B1B /* Models */,
 				416AE5972B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift */,
@@ -96,8 +101,17 @@
 			isa = PBXGroup;
 			children = (
 				41B8BCDB2B48676200646B1B /* APIService.swift */,
+				413B03512B4C581300E95412 /* ImageDownloadService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		41D985092B49A25000C1CD62 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41D9850B2B49AAF800C1CD62 /* UserPrefectureViewModel.swift in Sources */,
 				416AE59A2B46D63B0089039A /* ContentView.swift in Sources */,
 				41B8BCDC2B48676200646B1B /* APIService.swift in Sources */,
 				416AE5982B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift in Sources */,
 				41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */,
+				413B03522B4C581300E95412 /* ImageDownloadService.swift in Sources */,
 				41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

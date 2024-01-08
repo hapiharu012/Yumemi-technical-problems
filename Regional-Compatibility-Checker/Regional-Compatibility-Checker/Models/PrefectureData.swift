@@ -32,3 +32,16 @@ struct PrefectureData: Codable {
           case brief
       }
 }
+
+// レスポンスのデータの整形を行う関数
+// MARK: - extension PrefectureData
+extension PrefectureData {
+  var formattedCitizenDay: String {
+    guard let citizenDay = citizenDay else { return "県民の日はありません。"}
+    return "\(citizenDay.month)月\(citizenDay.date)日"
+  }
+  
+  var formattedHasCoastLine: String {
+    return hasCoastLine ? "海岸線あり" : "海岸線なし"
+  }
+}
