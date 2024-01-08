@@ -17,6 +17,11 @@ class UserPrefectureViewModel: ObservableObject {
       }
     }
   }
+  @Published var selectedDate: Date = Date() {  // DatePickerで使うユーザーの生年月日
+          didSet {
+              userData.birthday = convertDateToYearMonthDay(date: selectedDate)
+          }
+      }
   
   @Published var isLoading: Bool = false // APIリクエスト中かどうか
   @Published var errorMessage: String? // エラーメッセージ
@@ -41,8 +46,21 @@ class UserPrefectureViewModel: ObservableObject {
     case unknown
   }
   
-  // MARK: - fetchPrefectureData()
+  
+  // Date型をYearMonthDay型に変換するメソッド
+  // MARK: - convertDateToYearMonthDay()
+  func convertDateToYearMonthDay(date: Date) -> YearMonthDay {
+      let calendar = Calendar.current
+      let year = calendar.component(.year, from: date)
+      let month = calendar.component(.month, from: date)
+      let day = calendar.component(.day, from: date)
+
+      return YearMonthDay(year: year, month: month, day: day)
+  }
+
+  
   // APIリクエストを実装し、結果をハンドリングするメソッド
+  // MARK: - fetchPrefectureData()
   func fetchPrefectureData() {
     self.isLoading = true
     self.errorMessage = nil
@@ -68,8 +86,11 @@ class UserPrefectureViewModel: ObservableObject {
         }
       }
     }
-  }
+  } // -> fetchPrefectureData()
   
+  
+  // URLSessionに関わるエラーをハンドリングするメソッド
+  // MARK: - handleError()
   private func handleError(_ error: Error) {
     // URLErrorのハンドリング
     if let urlError = error as? URLError {
@@ -95,8 +116,7 @@ class UserPrefectureViewModel: ObservableObject {
     else {
       self.errorMessage = "データの取得に失敗しました。"
     }
-  }
-  
+  }  // -> handleError()
   
   
   // ユーザー名のバリデーションを行うメソッド
@@ -110,6 +130,7 @@ class UserPrefectureViewModel: ObservableObject {
     
     return
   }
+  
   
   // 誕生日のバリデーションを行うメソッド
   // MARK: - validateBirthday()
@@ -127,19 +148,18 @@ class UserPrefectureViewModel: ObservableObject {
       self.birthdayErrorMessage = "誕生日を入力してください。"
       return
     }
-    
     // 日付の形式が正しいかどうかのチェック
     guard let birthdayDate = calendar.date(from: dateComponents) else {
       self.birthdayErrorMessage = "無効な日付です。"
       return
     }
-    
     // 誕生日が未来の日付でないかのチェック
     if birthdayDate > currentDate {
       self.birthdayErrorMessage = "誕生日が未来の日付です。"
       return
     }
-  }
+  }  // -> validateBirthday()
+  
   
   // 血液型のバリデーションを行うメソッド
   // MARK: - validateBloodType()
@@ -156,6 +176,7 @@ class UserPrefectureViewModel: ObservableObject {
     return
   }
   
+  
   // 全てのユーザー情報のバリデーションを行うメソッド
   // MARK: - validateAllFields()
   func validateAllFields() -> Bool {
@@ -164,6 +185,7 @@ class UserPrefectureViewModel: ObservableObject {
     validateBloodType()
     return nameErrorMessage == nil && birthdayErrorMessage == nil && bloodTypeErrorMessage == nil  // エラーメッセージが全てnilであればtrueを返す
   }
+  
   
   // prefectureDataのlogoUrlの県のイラストをダウンロードする
   // MARK: - downloadPrefectureImage()
@@ -180,4 +202,4 @@ class UserPrefectureViewModel: ObservableObject {
     }
   }
   
-}
+}  // -> UserDataViewModel class
