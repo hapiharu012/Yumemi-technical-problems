@@ -16,6 +16,7 @@
 		41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCD82B48402000646B1B /* PrefectureData.swift */; };
 		41B8BCDC2B48676200646B1B /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B8BCDB2B48676200646B1B /* APIService.swift */; };
 		41D9850B2B49AAF800C1CD62 /* UserPrefectureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */; };
+		41F8E8D42B4D10D5005CDC20 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F8E8D32B4D10D5005CDC20 /* ResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		41B8BCD82B48402000646B1B /* PrefectureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefectureData.swift; sourceTree = "<group>"; };
 		41B8BCDB2B48676200646B1B /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		41D9850A2B49AAF800C1CD62 /* UserPrefectureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPrefectureViewModel.swift; sourceTree = "<group>"; };
+		41F8E8D32B4D10D5005CDC20 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				416AE5992B46D63B0089039A /* ContentView.swift */,
+				41F8E8D32B4D10D5005CDC20 /* ResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				41B8BCDC2B48676200646B1B /* APIService.swift in Sources */,
 				416AE5982B46D63B0089039A /* Regional_Compatibility_CheckerApp.swift in Sources */,
 				41B8BCD92B48402000646B1B /* PrefectureData.swift in Sources */,
+				41F8E8D42B4D10D5005CDC20 /* ResultView.swift in Sources */,
 				413B03522B4C581300E95412 /* ImageDownloadService.swift in Sources */,
 				41B8BCD72B4837EE00646B1B /* UserData.swift in Sources */,
 			);

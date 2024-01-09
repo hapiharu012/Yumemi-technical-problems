@@ -18,13 +18,15 @@ class UserPrefectureViewModel: ObservableObject {
     }
   }
   @Published var selectedDate: Date = Date() {  // DatePickerで使うユーザーの生年月日
-          didSet {
-              userData.birthday = convertDateToYearMonthDay(date: selectedDate)
-          }
-      }
+    didSet {
+      userData.birthday = convertDateToYearMonthDay(date: selectedDate)
+      validateBirthday()
+    }
+  }
   
   @Published var isLoading: Bool = false // APIリクエスト中かどうか
   @Published var isAlertPresented: Bool = false // アラートを表示するかどうか
+  @Published var isResultViewPresented: Bool = false
   @Published var errorMessage: String? // エラーメッセージ
   @Published var nameErrorMessage: String? // 名前のエラーメッセージ
   @Published var birthdayErrorMessage: String? // 誕生日のエラーメッセージ
@@ -51,14 +53,14 @@ class UserPrefectureViewModel: ObservableObject {
   // Date型をYearMonthDay型に変換するメソッド
   // MARK: - convertDateToYearMonthDay()
   func convertDateToYearMonthDay(date: Date) -> YearMonthDay {
-      let calendar = Calendar.current
-      let year = calendar.component(.year, from: date)
-      let month = calendar.component(.month, from: date)
-      let day = calendar.component(.day, from: date)
-
-      return YearMonthDay(year: year, month: month, day: day)
+    let calendar = Calendar.current
+    let year = calendar.component(.year, from: date)
+    let month = calendar.component(.month, from: date)
+    let day = calendar.component(.day, from: date)
+    
+    return YearMonthDay(year: year, month: month, day: day)
   }
-
+  
   
   // APIリクエストを実装し、結果をハンドリングするメソッド
   // MARK: - fetchPrefectureData()
