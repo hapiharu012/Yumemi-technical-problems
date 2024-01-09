@@ -12,9 +12,47 @@ struct ResultView: View {
 
       var body: some View {
           // ResultViewの内容
-        Text(userPrefectureViewModel?.prefectureData?.name ?? "結果はここに表示されます")
-//        Text(userPrefectureViewModel?.downloadedImage ?? "結果はここに表示されます")
-        Text(userPrefectureViewModel?.prefectureData?.brief ?? "結果はここに表示されます")
+        ZStack {
+          Color.yellow.edgesIgnoringSafeArea(.all)
+          VStack(spacing: 20) {
+                          Text("占い結果")
+                              .font(.largeTitle)
+                              .foregroundColor(.white)
+                              .bold()
+            if let image = userPrefectureViewModel?.downloadedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                        } else {
+                            // 画像がない場合はプレースホルダーを表示
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                                .foregroundColor(.gray)
+                        }
+            if let data = userPrefectureViewModel?.prefectureData {
+                              VStack(alignment: .leading, spacing: 10) {
+                                  Text("都道府県: \(data.name)")
+                                  Text("県庁所在地: \(data.capital)")
+                                  if let citizenDay = data.citizenDay {
+                                      Text("県民の日: \(citizenDay.month)月\(citizenDay.date)日")
+                                  }
+                                Text("海沿い: \(data.formattedHasCoastLine)")
+                                  Text("詳細: \(data.brief)")
+                              }
+                              .foregroundColor(.white)
+                              .padding()
+                              .background(Color.black.opacity(0.5))
+                              .cornerRadius(10)
+                          } else {
+                              Text("結果がありません")
+                                  .foregroundColor(.gray)
+                          }
+                      }
+                      .padding()
+        }
       }
 }
 

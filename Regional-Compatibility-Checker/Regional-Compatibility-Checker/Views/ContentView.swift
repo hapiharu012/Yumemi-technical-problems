@@ -21,7 +21,7 @@ struct ContentView: View {
       ZStack {
         Color.yellow.edgesIgnoringSafeArea(.all)
         
-        VStack(spacing: 30) {
+        VStack {
           
           TextField("", text: $userPrefectureViewModel.userData.name)
             .placeholder(when: userPrefectureViewModel.userData.name.isEmpty) {
@@ -30,7 +30,7 @@ struct ContentView: View {
             .focused($isNameFocused)
             .padding()
             
-            .background(Color.white) // 背景を透明に設定
+            .background(userPrefectureViewModel.nameErrorMessage != nil ? Color.red : Color.white) // 背景を透明に設定
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
             .onChange(of: isNameFocused) { isFocused in
@@ -38,29 +38,23 @@ struct ContentView: View {
                                         userPrefectureViewModel.validateName()
                                       }
                                   }
-            
+            .padding(.bottom,30)
           HStack() {
             Text("誕生日").font(.system(size: 24, weight: .bold, design: .default))
             Spacer()
             Rectangle()
-              .fill(.white)
-              .frame(width:120,height: 34)
+              .fill(userPrefectureViewModel.birthdayErrorMessage != nil ? Color.red : Color.white)
+              .frame(width:105,height: 31)
               .overlay(
                 DatePicker("", selection: $userPrefectureViewModel.selectedDate, displayedComponents: .date)
-                  .border(userPrefectureViewModel.birthdayErrorMessage != nil ? Color.red : Color.clear)
+                  .environment(\.locale, Locale(identifier: "ja_JP"))
             )
             .padding(.leading, -8)
             .padding(.trailing, -5)
             .background(.clear)
             .cornerRadius(9)
-//            .frame(width: 10,alignment: .leading)
-            
-//            DatePicker("", selection: $userPrefectureViewModel.selectedDate, displayedComponents: .date)
-//              .border(userPrefectureViewModel.birthdayErrorMessage != nil ? Color.red : Color.clear)
-//              .background(Color.white) // 背景を透明に設定
-//              .cornerRadius(9)
           }
-          
+          .padding(.bottom,30)
           HStack() {
             Text("血液型").font(.system(size: 24, weight: .bold, design: .default))
             Picker("血液型", selection: $userPrefectureViewModel.userData.bloodType) {
@@ -69,10 +63,37 @@ struct ContentView: View {
               }
             }
             .pickerStyle(SegmentedPickerStyle())
-            .border(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.clear)
-            .background(Color.white) // 背景を透明に設定
+//            .border(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.clear)
+            .background(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.white) // 背景を透明に設定
             .cornerRadius(9)
           }
+          .padding(.bottom,30)
+          
+          VStack(spacing: 10) {
+                      if userPrefectureViewModel.nameErrorMessage != nil {
+                        Text(userPrefectureViewModel.nameErrorMessage!)
+                          .foregroundColor(.red)
+                          .font(.system(size: 15, weight:  .light, design: .default))
+                      }
+                      if userPrefectureViewModel.birthdayErrorMessage != nil {
+                        Text(userPrefectureViewModel.birthdayErrorMessage!)
+                          .foregroundColor(.red)
+                          .font(.system(size: 15, weight:  .light, design: .default))
+                      }
+                      if userPrefectureViewModel.bloodTypeErrorMessage != nil {
+                        Text(userPrefectureViewModel.bloodTypeErrorMessage!)
+                          .foregroundColor(.red)
+                          .font(.system(size: 15, weight:  .light, design: .default))
+                      }
+                    }
+          .padding(.bottom,30)
+          
+          
+          NavigationLink(destination: ResultView(userPrefectureViewModel: userPrefectureViewModel),
+                         isActive: $userPrefectureViewModel.isResultViewPresented) {
+                                  EmptyView()
+                              }
+                              
           
           Button(action: {
             if userPrefectureViewModel.validateAllFields() {
@@ -87,12 +108,13 @@ struct ContentView: View {
               .background(.black)
               .cornerRadius(9)
               .foregroundColor(colorScheme == .dark ? .black : .white)
-          } //: SAVE BUTTON
+          }
+          
           
         }
         .padding()
       }
-      .navigationTitle("NavigationView")
+      .navigationTitle("都道府県占い")
     }
   }
 }
@@ -109,53 +131,6 @@ extension View {
         }
     }
 }
-//struct ContentView: View {
-//  @FocusState private var isNameFocused: Bool
-//  @FocusState private var isBirthFocused: Bool
-//  let bloodTypes = ["a", "b", "o", "ab"]
-//
-//  @StateObject var userPrefectureViewModel: UserPrefectureViewModel = UserPrefectureViewModel()
-//
-//  var body: some View {
-//    ZStack {
-//      Color.yellow.edgesIgnoringSafeArea(.all) // 背景を黄色に設定
-//
-//      NavigationView {
-//        VStack {
-//          TextField("名前", text: $userPrefectureViewModel.userData.name)
-//            .focused($isNameFocused)
-//            .padding()
-//            .background(Color.clear) // 背景を透明に設定
-//            .cornerRadius(9)
-//            .font(.system(size: 24, weight: .bold, design: .default))
-//
-//          DatePicker("誕生日", selection: $userPrefectureViewModel.selectedDate, displayedComponents: .date)
-//            .border(userPrefectureViewModel.birthdayErrorMessage != nil ? Color.red : Color.clear)
-//            .background(Color.clear) // 背景を透明に設定
-//
-//          Picker("血液型", selection: $userPrefectureViewModel.userData.bloodType) {
-//            ForEach(bloodTypes, id: \.self) {
-//              Text($0)
-//            }
-//          }
-//          .pickerStyle(SegmentedPickerStyle())
-//          .border(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.clear)
-//          .background(Color.clear) // 背景を透明に設定
-//
-//          Button("占いを行う") {
-//            if userPrefectureViewModel.validateAllFields() {
-//              userPrefectureViewModel.isResultViewPresented = true
-//              userPrefectureViewModel.fetchPrefectureData()
-//            }
-//          }
-//        }
-//        .navigationTitle("占いフォーム")
-//        .background(Color.clear) // 背景を透明に設定
-//      }
-//      .navigationViewStyle(StackNavigationViewStyle()) // ナビゲーションビュースタイルの設定
-//    }
-//  }
-//}
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
