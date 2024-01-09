@@ -13,24 +13,27 @@ struct ContentView: View {
   @FocusState private var isBirthFocused: Bool
   // 端末の環境設定を取得
   @Environment(\.colorScheme) var colorScheme
+  
   let bloodTypes = ["a", "b", "o", "ab"]
   
   @StateObject var userPrefectureViewModel: UserPrefectureViewModel = UserPrefectureViewModel()
+  
   var body: some View {
     NavigationView {
       ZStack {
-        Color.yellow.edgesIgnoringSafeArea(.all)
+        Color("back").edgesIgnoringSafeArea(.all)
         
         VStack {
           
           TextField("", text: $userPrefectureViewModel.userData.name)
             .placeholder(when: userPrefectureViewModel.userData.name.isEmpty) {
                    Text("名前").font(.system(size: 24, weight: .bold, design: .default))
+                .foregroundColor(Color("button"))
            }
             .focused($isNameFocused)
             .padding()
             
-            .background(userPrefectureViewModel.nameErrorMessage != nil ? Color.red : Color.white) // 背景を透明に設定
+            .background(userPrefectureViewModel.nameErrorMessage != nil ? Color("error") : Color("text")) // 背景を透明に設定
             .cornerRadius(9)
             .font(.system(size: 24, weight: .bold, design: .default))
             .onChange(of: isNameFocused) { isFocused in
@@ -41,9 +44,10 @@ struct ContentView: View {
             .padding(.bottom,30)
           HStack() {
             Text("誕生日").font(.system(size: 24, weight: .bold, design: .default))
+              .foregroundColor(Color("button"))
             Spacer()
             Rectangle()
-              .fill(userPrefectureViewModel.birthdayErrorMessage != nil ? Color.red : Color.white)
+              .fill(userPrefectureViewModel.birthdayErrorMessage != nil ? Color("error") : Color("text"))
               .frame(width:105,height: 31)
               .overlay(
                 DatePicker("", selection: $userPrefectureViewModel.selectedDate, displayedComponents: .date)
@@ -57,14 +61,14 @@ struct ContentView: View {
           .padding(.bottom,30)
           HStack() {
             Text("血液型").font(.system(size: 24, weight: .bold, design: .default))
+              .foregroundColor(Color("button"))
             Picker("血液型", selection: $userPrefectureViewModel.userData.bloodType) {
               ForEach(bloodTypes, id: \.self) {
                 Text($0)
               }
             }
             .pickerStyle(SegmentedPickerStyle())
-//            .border(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.clear)
-            .background(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color.red : Color.white) // 背景を透明に設定
+            .background(userPrefectureViewModel.bloodTypeErrorMessage != nil ? Color("error") : Color("text")) // 背景を透明に設定
             .cornerRadius(9)
           }
           .padding(.bottom,30)
@@ -72,17 +76,17 @@ struct ContentView: View {
           VStack(spacing: 10) {
                       if userPrefectureViewModel.nameErrorMessage != nil {
                         Text(userPrefectureViewModel.nameErrorMessage!)
-                          .foregroundColor(.red)
+                          .foregroundColor(Color("error"))
                           .font(.system(size: 15, weight:  .light, design: .default))
                       }
                       if userPrefectureViewModel.birthdayErrorMessage != nil {
                         Text(userPrefectureViewModel.birthdayErrorMessage!)
-                          .foregroundColor(.red)
+                          .foregroundColor(Color("error"))
                           .font(.system(size: 15, weight:  .light, design: .default))
                       }
                       if userPrefectureViewModel.bloodTypeErrorMessage != nil {
                         Text(userPrefectureViewModel.bloodTypeErrorMessage!)
-                          .foregroundColor(.red)
+                          .foregroundColor(Color("error"))
                           .font(.system(size: 15, weight:  .light, design: .default))
                       }
                     }
@@ -105,9 +109,9 @@ struct ContentView: View {
               .font(.system(size: 24, weight: .bold, design: .default))
               .padding()
               .frame(minWidth: 0, maxWidth: .infinity)
-              .background(.black)
+              .background(Color("button"))
               .cornerRadius(9)
-              .foregroundColor(colorScheme == .dark ? .black : .white)
+              .foregroundColor(.white)
           }
           
           
